@@ -24,6 +24,5 @@ public class InventoryModel {
     private boolean active_ind;
     private String create_date;
     private String update_date;
-    private long warehouse_id;
 
 }

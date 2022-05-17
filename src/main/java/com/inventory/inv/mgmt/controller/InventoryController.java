@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -22,7 +23,7 @@ public class InventoryController {
     }
 
     @PostMapping(value = "/saveItem")
-    public ApiResponseModel save(@RequestBody InventoryModel model) {
+    public ApiResponseModel save(@RequestBody InventoryModel model) { // Save inventory items controller
         ApiResponseModel api = new ApiResponseModel();
         try {
             InventoryModel result = inventoryService.saveItem(model);
@@ -34,18 +35,18 @@ public class InventoryController {
                 return api;
             }
         } catch (Exception ex) {
-            ex.getStackTrace();}
-//        } finally {
-//            api.setStatusCode(Constants.HTTP_INTERNAL_SERVER_ERROR);
-//            api.setMessage("Some error occurred. see logs for stacktrace.");
-//            return api;
-//        }
-        return api;
+            ex.getStackTrace();
+            api.setStatusCode(Constants.HTTP_INTERNAL_SERVER_ERROR);
+            api.setMessage("Some error occurred. see logs for stacktrace.");
+            return api;
+        } finally {
+            return api;
+        }
     }
 
     @GetMapping(value = "/delete/{itemId}")
     @ResponseBody
-    public ApiResponseModel deleteItemById(@PathVariable("itemId") Long id){
+    public ApiResponseModel deleteItemById(@PathVariable("itemId") Long id){ // Delete inventory item by ID controller
         ApiResponseModel apiResponseModel = new ApiResponseModel();
         String result = inventoryService.deleteItemWithGivenId(id);
         if(result == null){
@@ -62,7 +63,7 @@ public class InventoryController {
 
 
     @PutMapping(value = "/edit/{itemId}")
-    public ApiResponseModel editItemById(@PathVariable("itemId") Long id, @RequestBody InventoryModel model){
+    public ApiResponseModel editItemById(@PathVariable("itemId") Long id, @RequestBody InventoryModel model){ // Edit inventory item
         ApiResponseModel apiResponseModel = new ApiResponseModel();
         InventoryModel result = inventoryService.editItemWithGivenId(id, model);
         if(result == null){
@@ -70,8 +71,39 @@ public class InventoryController {
             apiResponseModel.setMessage("Data not found");
             return apiResponseModel;
         }
-        apiResponseModel.setStatusCode(Constants.HTTP_OK);
+        apiResponseModel.setStatusCode(202);
         apiResponseModel.setMessage("items with ID " + id + " updated");
+        apiResponseModel.setData(result);
+        return apiResponseModel;
+    }
+
+    @GetMapping(value = "/getAll")
+    public ApiResponseModel getAll(){ // View full inventory controller
+        ApiResponseModel apiResponseModel = new ApiResponseModel();
+        List<InventoryModel> resultList = inventoryService.getAllItems();
+        if(resultList.isEmpty()){
+            apiResponseModel.setStatusCode(Constants.HTTP_NOT_FOUND);
+            apiResponseModel.setMessage("Data not found. Please Contact Home Branch at 1800 444 2222");
+            return apiResponseModel;
+        }
+        apiResponseModel.setStatusCode(Constants.HTTP_OK);
+        apiResponseModel.setMessage(resultList.size()+" items found in total");
+        apiResponseModel.setData(resultList);
+        return apiResponseModel;
+    }
+
+    @GetMapping(value = "/get/{itemId}")
+    @ResponseBody
+    public ApiResponseModel getItemById(@PathVariable("itemId") Long id){ // View inventory item by id
+        ApiResponseModel apiResponseModel = new ApiResponseModel();
+        Optional result = inventoryService.getItemWithGivenId(id);
+        if(result == null){
+            apiResponseModel.setStatusCode(Constants.HTTP_NOT_FOUND);
+            apiResponseModel.setMessage("Data not found. Please Contact Home Branch at 1800 444 2222");
+            return apiResponseModel;
+        }
+        apiResponseModel.setStatusCode(Constants.HTTP_OK);
+        apiResponseModel.setMessage("items with ID " + id + " found in database");
         apiResponseModel.setData(result);
         return apiResponseModel;
     }
