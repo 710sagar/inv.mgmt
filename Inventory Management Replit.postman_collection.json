@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "cd2cb30e-0985-4ba3-9ccd-484d0e33f5ee",
+		"name": "Inventory Management Replit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Save Item Inventory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Screw\",\n    \"description\":\"Used for screwing boards\",\n    \"price\":150,\n    \"qty\":1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/saveItem",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"saveItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/getAll",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item with id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/delete/3",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"delete",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item with id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/get/2",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"get",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit item with id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"price\":150,\n    \"qty\":250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/edit/2",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"edit",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Warehouse Mapping",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"warehouse_id\":1,\n    \"stock_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/insertMapping",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"insertMapping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Warehouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"warehouse_id\":1,\n    \"stock_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://invmgmt.sagargupta16.repl.co/insertMapping",
+					"protocol": "https",
+					"host": [
+						"invmgmt",
+						"sagargupta16",
+						"repl",
+						"co"
+					],
+					"path": [
+						"insertMapping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
